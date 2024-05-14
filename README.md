@@ -11,5 +11,5 @@ pip install keras
 - Manuel Morullo
 - Dolores Domínguez
 - Milagros Soberon
-- Ignacio Frangolini
+- Juan Ignacio Frangolini
 - Nuria Robledo
