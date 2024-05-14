@@ -5,3 +5,11 @@
 pip install tensorflow
 pip install keras
 ```
+## Integrantes
+- Franco Kral
+- Leo Sebastian Gonzales Tello
+- Manuel Morullo
+- Dolores Domínguez
+- Milagros Soberon
+- Ignacio Frangolini
+- Nuria Robledo
