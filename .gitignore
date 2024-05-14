@@ -1,0 +1,14 @@
+# IDEs
+.idea/
+.vscode/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Carpeta del entorno virtual
+env/
+
+# Otros archivos y carpetas que podrían ser ignorados según las necesidades del proyecto
+# Por ejemplo, archivos de configuración locales, archivos de registros, etc.
