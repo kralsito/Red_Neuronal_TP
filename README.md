@@ -14,3 +14,5 @@ pip install scikit-learn
 - Milagros Soberon
 - Juan Ignacio Frangolini
 - Nuria Robledo
+
+### Antes de usar la aplicacion se debe correr el training.py para que se genere el modelo de entrenamiento
