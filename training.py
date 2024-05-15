@@ -43,7 +43,7 @@ X = pad_sequences(sequences, maxlen=max_length)
 y = np.array(labels)
 
 # Dividir los datos en conjuntos de entrenamiento y prueba
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Definir el modelo
 model = Sequential([
