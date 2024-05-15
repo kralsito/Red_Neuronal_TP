@@ -13,4 +13,4 @@ env/
 # Otros archivos y carpetas que podrían ser ignorados según las necesidades del proyecto
 # Por ejemplo, archivos de configuración locales, archivos de registros, etc.
 
-.model/
+model/
