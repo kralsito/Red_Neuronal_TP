@@ -7,17 +7,29 @@ import numpy as np
 import os
 import pickle
 
-
+# Cargar los datos
 data_dir = "data"
+# Crear una lista vacía para almacenar los datos
 data = []
 
 for language in os.listdir(data_dir):
     language_dir = os.path.join(data_dir, language)
     for file_name in os.listdir(language_dir):
         file_path = os.path.join(language_dir, file_name)
-        with open(file_path, "r") as file:
-            code = file.read()
-            data.append((code, language))
+        try: # Intentamos abrir el archivo con codificación UTF-8 
+            with open(file_path, "r", encoding="utf-8") as file:
+                code = file.read()
+        except UnicodeDecodeError: # Si falla, intentamos con otra codificación por tildes, $, etc.
+            print(f"Error decoding file '{file_path}' as UTF-8, attempting alternative encoding...")
+            # Intentamos abrir el archivo con codificación latin-1
+            with open(file_path, "r", encoding="latin-1") as file:
+                # Leemos el contenido del archivo
+                code = file.read()
+                # Imprimimos un mensaje de éxito
+            print(f"Success! Encoding file '{file_path}' as latin-1")
+        # Agregamos el código y el lenguaje a la lista de datos
+        data.append((code, language))
+
 # Ahora `data` contiene una lista de tuplas, donde cada tupla contiene un bloque de código y su lenguaje correspondiente
 
 
