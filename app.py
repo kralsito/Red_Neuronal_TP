@@ -35,3 +35,19 @@ with open(file_path, "r") as file:
 
 predicted_language = predict_language(code_example)
 print(f"El lenguaje de programacion es: {predicted_language}")
+
+
+# Función para predecir las probabilidades de cada lenguaje de programación para un fragmento de código dado
+def predict_language_probabilities(code):
+    # Tokenizar el código
+    sequence = tokenizer.texts_to_sequences([code])
+    padded_sequence = pad_sequences(sequence, maxlen=max_length)
+    # Realizar la predicción
+    prediction = model.predict(padded_sequence)[0]
+    # Obtener las probabilidades de cada lenguaje
+    probabilities = {index_to_label[i]: prob for i, prob in enumerate(prediction)}
+    return probabilities    
+
+probabilities = predict_language_probabilities(code_example)
+for language, probability in probabilities.items():
+    print(f"{language}: {probability:.2f}%")
