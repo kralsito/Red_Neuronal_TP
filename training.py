@@ -7,11 +7,12 @@ import numpy as np
 import os
 import pickle
 
-# Cargar los datos
+# CARGA DE LOS DATOS
+# Se define el directorio data donde se almacenan los fragmentos de código organizados por lenguaje de programación
 data_dir = "data"
 # Crear una lista vacía para almacenar los datos
 data = []
-
+# Recorre cada lenguaje de promación y cada archivo de estos subfirectorios
 for language in os.listdir(data_dir):
     language_dir = os.path.join(data_dir, language)
     for file_name in os.listdir(language_dir):
@@ -27,26 +28,30 @@ for language in os.listdir(data_dir):
                 code = file.read()
                 # Imprimimos un mensaje de éxito
             print(f"Success! Encoding file '{file_path}' as latin-1")
-        # Agregamos el código y el lenguaje a la lista de datos
+        # Agregamos el contenido del código y el lenguaje de promación a la lista de datos
         data.append((code, language))
 
 # Ahora `data` contiene una lista de tuplas, donde cada tupla contiene un bloque de código y su lenguaje correspondiente
 
 
-# Preparación de los datos
+# PREPARACIÓN DE LOS DATOS PARA EL ENTRENAMIENTO
+# Separa el código y el lenguaje en listas separadas
 texts, labels = zip(*data)
 languages = sorted(set(labels))
 
-# Mapear cada lenguaje a un número
+# Se crea el mapeo de cada lenguaje a un número y su inverso
 label_to_index = {label: idx for idx, label in enumerate(languages)}
 index_to_label = {idx: label for label, idx in label_to_index.items()}
 
-# Convertir etiquetas a índices
+# Convertir etiquetas a índices númericos
 labels = [label_to_index[label] for label in labels]
 
-# Tokenización de los textos
+
+# Tokeniza el código usando Keras con un vocabulario máximo de 500 palabras
 tokenizer = Tokenizer(num_words=500)
+
 tokenizer.fit_on_texts(texts)
+# Convierte los textos tokenizados a secuencias numéricas y ajusta todas las secuencias a la misma longitud
 sequences = tokenizer.texts_to_sequences(texts)
 max_length = max(len(seq) for seq in sequences)
 X = pad_sequences(sequences, maxlen=max_length)
@@ -54,23 +59,31 @@ X = pad_sequences(sequences, maxlen=max_length)
 # Convertir las etiquetas a un array numpy
 y = np.array(labels)
 
-# Dividir los datos en conjuntos de entrenamiento y prueba
+# DIVISIÓN DE LOS DATOS 
+# Se divide los datos en conjuntos de entrenamiento y prueba 
+# El 70% de los datos se utiliza para el entrenamiento y el 30% para la prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Definir el modelo
+# DEFINICIÓN Y ENTRENAMIENTO DEL MODELO
 model = Sequential([
+    # Convierte las secuencias numéricas a vectores densos 
     Embedding(input_dim=500, output_dim=32, input_length=max_length),
-    Bidirectional(LSTM(32)),   #Capa oculta
-    Dense(16, activation='relu'),  #Capa oculta
+    # Se usa una capa LSTM bidireccional para aprender patrones en ambas direcciones de las secuencias
+    Bidirectional(LSTM(32)),
+    # Es una capa densa de 64 neuronas con función de activación ReLU
+    Dense(16, activation='relu'),
+    # Es una capa de salida con activación softmax para clasificar los lenguajes de programación
     Dense(len(languages), activation='softmax')
 ])
 
 # Compilar el modelo
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-# Entrenar el modelo
+# Entrenar el modelo usando el conjunto de datos de entrenamiento y validando con el conjunto de datos de prueba
 model.fit(X_train, y_train, epochs=20, validation_data=(X_test, y_test))
 
+
+# GUARDAR EL MODELO Y LOS DICCIONARIOS
 # Guardar el modelo
 model.save("model/language_model.h5")
 
