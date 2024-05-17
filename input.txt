@@ -1,42 +1,84 @@
-import tensorflow as tf
-from tensorflow.keras import layers, models, datasets
-import matplotlib.pyplot as plt
+using System;
+using System.Collections.Generic;
 
-# Cargar el conjunto de datos CIFAR-10
-(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+// Definición de una clase 'Employee'
+class Employee
+{
+    private string name;
+    private int age;
+    private double salary;
 
-# Normalizar las imágenes
-train_images, test_images = train_images / 255.0, test_images / 255.0
+    // Constructor de la clase 'Employee'
+    public Employee(string name, int age, double salary)
+    {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
 
-# Definir el modelo CNN
-model = models.Sequential([
-    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)),
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.Flatten(),
-    layers.Dense(64, activation='relu'),
-    layers.Dense(10)
-])
+    // Método para obtener el nombre del empleado
+    public string GetName()
+    {
+        return name;
+    }
 
-# Compilar el modelo
-model.compile(optimizer='adam',
-              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
+    // Método para obtener la edad del empleado
+    public int GetAge()
+    {
+        return age;
+    }
 
-# Entrenar el modelo
-history = model.fit(train_images, train_labels, epochs=10, 
-                    validation_data=(test_images, test_labels))
+    // Método para obtener el salario del empleado
+    public double GetSalary()
+    {
+        return salary;
+    }
 
-# Evaluar la precisión del modelo
-test_loss, test_acc = model.evaluate(test_images, test_labels)
-print(f"Precisión del modelo en el conjunto de prueba: {test_acc}")
+    // Método para calcular el salario anual del empleado
+    public double CalculateAnnualSalary()
+    {
+        return salary * 12;
+    }
+}
 
-# Graficar la precisión y la pérdida durante el entrenamiento
-plt.plot(history.history['accuracy'], label='Precisión de entrenamiento')
-plt.plot(history.history['val_accuracy'], label='Precisión de validación')
-plt.xlabel('Época')
-plt.ylabel('Precisión')
-plt.legend()
-plt.show()
+// Clase principal que contiene el método Main
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Creación de instancias de la clase 'Employee'
+        Employee employee1 = new Employee("Alice", 30, 50000.0);
+        Employee employee2 = new Employee("Bob", 25, 60000.0);
+
+        // Impresión de la información de los empleados
+        Console.WriteLine("Employee 1:");
+        Console.WriteLine("Name: " + employee1.GetName());
+        Console.WriteLine("Age: " + employee1.GetAge());
+        Console.WriteLine("Salary: " + employee1.GetSalary());
+        Console.WriteLine("Annual Salary: " + employee1.CalculateAnnualSalary());
+
+        Console.WriteLine("\nEmployee 2:");
+        Console.WriteLine("Name: " + employee2.GetName());
+        Console.WriteLine("Age: " + employee2.GetAge());
+        Console.WriteLine("Salary: " + employee2.GetSalary());
+        Console.WriteLine("Annual Salary: " + employee2.CalculateAnnualSalary());
+
+        // Uso de un bucle 'for' para imprimir números del 1 al 5
+        Console.WriteLine("\nPrinting numbers from 1 to 5:");
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.WriteLine(i);
+        }
+
+        // Uso de la clase 'Dictionary' para almacenar y recuperar datos
+        Dictionary<string, int> ages = new Dictionary<string, int>();
+        ages["Alice"] = 30;
+        ages["Bob"] = 25;
+
+        Console.WriteLine("\nAges:");
+        foreach (var pair in ages)
+        {
+            Console.WriteLine(pair.Key + ": " + pair.Value);
+        }
+    }
+}
