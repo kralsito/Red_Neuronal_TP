@@ -45,7 +45,7 @@ index_to_label = {idx: label for label, idx in label_to_index.items()}
 labels = [label_to_index[label] for label in labels]
 
 # Tokenización de los textos
-tokenizer = Tokenizer(num_words=1000)
+tokenizer = Tokenizer(num_words=500)
 tokenizer.fit_on_texts(texts)
 sequences = tokenizer.texts_to_sequences(texts)
 max_length = max(len(seq) for seq in sequences)
@@ -59,9 +59,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # Definir el modelo
 model = Sequential([
-    Embedding(input_dim=1000, output_dim=64, input_length=max_length),
-    Bidirectional(LSTM(64)),
-    Dense(64, activation='relu'),
+    Embedding(input_dim=500, output_dim=32, input_length=max_length),
+    Bidirectional(LSTM(32)),   #Capa oculta
+    Dense(16, activation='relu'),  #Capa oculta
     Dense(len(languages), activation='softmax')
 ])
 
@@ -69,7 +69,7 @@ model = Sequential([
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Entrenar el modelo
-model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test))
+model.fit(X_train, y_train, epochs=20, validation_data=(X_test, y_test))
 
 # Guardar el modelo
 model.save("model/language_model.h5")
