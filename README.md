@@ -16,3 +16,12 @@ pip install scikit-learn
 - Nuria Robledo
 
 ### Antes de usar la aplicacion se debe correr el training.py para que se genere el modelo de entrenamiento
+
+## Cantidad de patrones por lenguaje
+```
+C = 25
+C# = 25
+JAVA = 25
+JAVASCRIPT = 25
+PYTHON = 26
+```

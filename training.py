@@ -12,7 +12,7 @@ import pickle
 data_dir = "data"
 # Crear una lista vacía para almacenar los datos
 data = []
-# Recorre cada lenguaje de promación y cada archivo de estos subfirectorios
+# Recorre cada lenguaje de programación y cada archivo de estos subdirectorios
 for language in os.listdir(data_dir):
     language_dir = os.path.join(data_dir, language)
     for file_name in os.listdir(language_dir):
@@ -80,7 +80,7 @@ model = Sequential([
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Entrenar el modelo usando el conjunto de datos de entrenamiento y validando con el conjunto de datos de prueba
-model.fit(X_train, y_train, epochs=20, validation_data=(X_test, y_test))
+model.fit(X_train, y_train, epochs=30, validation_data=(X_test, y_test))
 
 
 # GUARDAR EL MODELO Y LOS DICCIONARIOS
