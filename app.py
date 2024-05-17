@@ -7,6 +7,7 @@ import pickle
 # Cargar el modelo y el tokenizer
 model = load_model("model/language_model.h5")
 
+# Cargar los diccionarios y la longitud máxima de secuencia
 with open("model/tokenizer.pickle", "rb") as handle:
     tokenizer = pickle.load(handle)
 with open("model/label_to_index.pickle", "rb") as handle:
@@ -24,6 +25,7 @@ def predict_language(code):
     language_index = np.argmax(prediction)
     return index_to_label[language_index]
 
+# Predicción del lenguaje de programación de un archivo de texto
 # Ruta al archivo de texto
 file_path = "input.txt"
 
