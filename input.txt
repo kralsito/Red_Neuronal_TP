@@ -1,84 +1,22 @@
-using System;
-using System.Collections.Generic;
 
-// Definición de una clase 'Employee'
-class Employee
-{
-    private string name;
-    private int age;
-    private double salary;
-
-    // Constructor de la clase 'Employee'
-    public Employee(string name, int age, double salary)
-    {
-        this.name = name;
-        this.age = age;
-        this.salary = salary;
-    }
-
-    // Método para obtener el nombre del empleado
-    public string GetName()
-    {
-        return name;
-    }
-
-    // Método para obtener la edad del empleado
-    public int GetAge()
-    {
-        return age;
-    }
-
-    // Método para obtener el salario del empleado
-    public double GetSalary()
-    {
-        return salary;
-    }
-
-    // Método para calcular el salario anual del empleado
-    public double CalculateAnnualSalary()
-    {
-        return salary * 12;
-    }
+function compararNumeros(a, b) {
+  if (a === b) {
+    return "a y b son iguales";
+  } else if (a > b) {
+    return "a es mayor que b";
+  } else {
+    return "b es mayor que a";
+  }
 }
 
-// Clase principal que contiene el método Main
-class Program
-{
-    static void Main(string[] args)
-    {
-        // Creación de instancias de la clase 'Employee'
-        Employee employee1 = new Employee("Alice", 30, 50000.0);
-        Employee employee2 = new Employee("Bob", 25, 60000.0);
+// Con el operador condicional (ternario).
 
-        // Impresión de la información de los empleados
-        Console.WriteLine("Employee 1:");
-        Console.WriteLine("Name: " + employee1.GetName());
-        Console.WriteLine("Age: " + employee1.GetAge());
-        Console.WriteLine("Salary: " + employee1.GetSalary());
-        Console.WriteLine("Annual Salary: " + employee1.CalculateAnnualSalary());
-
-        Console.WriteLine("\nEmployee 2:");
-        Console.WriteLine("Name: " + employee2.GetName());
-        Console.WriteLine("Age: " + employee2.GetAge());
-        Console.WriteLine("Salary: " + employee2.GetSalary());
-        Console.WriteLine("Annual Salary: " + employee2.CalculateAnnualSalary());
-
-        // Uso de un bucle 'for' para imprimir números del 1 al 5
-        Console.WriteLine("\nPrinting numbers from 1 to 5:");
-        for (int i = 1; i <= 5; i++)
-        {
-            Console.WriteLine(i);
-        }
-
-        // Uso de la clase 'Dictionary' para almacenar y recuperar datos
-        Dictionary<string, int> ages = new Dictionary<string, int>();
-        ages["Alice"] = 30;
-        ages["Bob"] = 25;
-
-        Console.WriteLine("\nAges:");
-        foreach (var pair in ages)
-        {
-            Console.WriteLine(pair.Key + ": " + pair.Value);
-        }
-    }
+function compararNumeros(a, b) {
+  return a === b ? "a y b son iguales"
+       : a > b ? "a es mayor que b"
+       : "b es mayor que a";
 }
+
+console.log(compararNumeros(11, 27));
+console.log(compararNumeros(27, 11));
+console.log(compararNumeros(15, 15));

@@ -67,9 +67,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 # DEFINICIÓN Y ENTRENAMIENTO DEL MODELO
 model = Sequential([
     # Convierte las secuencias numéricas a vectores densos 
-    Embedding(input_dim=500, output_dim=64, input_length=max_length),
+    Embedding(input_dim=500, output_dim=32, input_length=max_length),
     # Se usa una capa LSTM bidireccional para aprender patrones en ambas direcciones de las secuencias
-    Bidirectional(LSTM(64)), #Al modificar la capa oculta cambian los porcentajes
+    Bidirectional(LSTM(32)), #Al modificar la capa oculta cambian los porcentajes
     # Es una capa densa de 64 neuronas con función de activación ReLU
     Dense(32, activation='relu'),
     # Es una capa de salida con activación softmax para clasificar los lenguajes de programación
