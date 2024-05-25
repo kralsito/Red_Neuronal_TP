@@ -23,5 +23,7 @@ C = 25
 C# = 25
 JAVA = 25
 JAVASCRIPT = 26
-PYTHON = 26
+PYTHON = 50
 ```
+
+### (Get-ChildItem -File | Measure-Object).Count
