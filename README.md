@@ -19,11 +19,12 @@ pip install scikit-learn
 
 ## Cantidad de patrones por lenguaje
 
+```
 C = 50
 C# = 25
-JAVA = 25
+JAVA = 50
 JAVASCRIPT = 50
 PYTHON = 50
-
+```
 
 ### (Get-ChildItem -File | Measure-Object).Count
