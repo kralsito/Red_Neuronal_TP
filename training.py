@@ -82,6 +82,10 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 # Entrenar el modelo usando el conjunto de datos de entrenamiento y validando con el conjunto de datos de prueba
 model.fit(X_train, y_train, epochs=30, validation_data=(X_test, y_test))
 
+# Evaluar el modelo utilizando el conjunto de datos de prueba
+loss, accuracy = model.evaluate(X_test, y_test)
+print(f'Error general en el conjunto de datos de prueba: {loss}')
+print(f'Precisión en el conjunto de datos de prueba: {accuracy}')
 
 # GUARDAR EL MODELO Y LOS DICCIONARIOS
 # Guardar el modelo
