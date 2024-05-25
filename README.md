@@ -19,7 +19,7 @@ pip install scikit-learn
 
 ## Cantidad de patrones por lenguaje
 ```
-C = 25
+C = 50
 C# = 25
 JAVA = 50
 JAVASCRIPT = 26

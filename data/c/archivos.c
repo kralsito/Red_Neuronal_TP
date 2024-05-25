@@ -1,18 +1,28 @@
 #include <stdio.h>
 
 int main() {
-    FILE *fp;
-    char buffer[255];
-
-    fp = fopen("test.txt", "w+");
-    fprintf(fp, "This is testing for fprintf...\n");
-    fputs("This is testing for fputs...\n", fp);
-    fclose(fp);
-
-    fp = fopen("test.txt", "r");
-    while (fgets(buffer, 255, fp)) {
-        printf("%s", buffer);
+    FILE* archivo = fopen("datos.txt", "w");
+    if (archivo == NULL) {
+        printf("Error: No se pudo abrir el archivo.\n");
+        return 1;
     }
-    fclose(fp);
+
+    fprintf(archivo, "Hola, mundo!\n");
+    fprintf(archivo, "Este es un archivo de prueba.\n");
+    fclose(archivo);
+
+    char linea[100];
+    archivo = fopen("datos.txt", "r");
+    if (archivo == NULL) {
+        printf("Error: No se pudo abrir el archivo.\n");
+        return 1;
+    }
+
+    printf("Contenido del archivo:\n");
+    while (fgets(linea, sizeof(linea), archivo) != NULL) {
+        printf("%s", linea);
+    }
+
+    fclose(archivo);
     return 0;
 }
