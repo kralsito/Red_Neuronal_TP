@@ -21,7 +21,7 @@ pip install scikit-learn
 
 ```
 C = 50
-C# = 25
+C# = 30
 JAVA = 50
 JAVASCRIPT = 50
 PYTHON = 50
