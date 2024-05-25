@@ -10,3 +10,18 @@ public class Main {
                .forEach(System.out::println);  // Output: 2 4 6 8 10
     }
 }
+
+@FunctionalInterface
+interface OperacionMatematica {
+    int operar(int a, int b);
+}
+
+public class Lambda {
+    public static void main(String[] args) {
+        OperacionMatematica suma = (a, b) -> a + b;
+        OperacionMatematica resta = (a, b) -> a - b;
+
+        System.out.println("Suma: " + suma.operar(5, 3));
+        System.out.println("Resta: " + resta.operar(5, 3));
+    }
+}
