@@ -1,22 +1,33 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SumaService.service;
 
-function compararNumeros(a, b) {
-  if (a === b) {
-    return "a y b son iguales";
-  } else if (a > b) {
-    return "a es mayor que b";
-  } else {
-    return "b es mayor que a";
-  }
+namespace SumaService.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CalculadoraController : ControllerBase
+    {
+        private readonly CalculadoraService _calculadoraService;
+
+        public CalculadoraController(CalculadoraService calculadoraService)
+        {
+            _calculadoraService = calculadoraService;
+        }
+
+        [HttpGet("sumar")]
+        public IActionResult Sumar(int numero1, int numero2)
+        {
+            try
+            {
+                int resultado = _calculadoraService.Sumar(numero1, numero2);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
+    }
+
 }
-
-// Con el operador condicional (ternario).
-
-function compararNumeros(a, b) {
-  return a === b ? "a y b son iguales"
-       : a > b ? "a es mayor que b"
-       : "b es mayor que a";
-}
-
-console.log(compararNumeros(11, 27));
-console.log(compararNumeros(27, 11));
-console.log(compararNumeros(15, 15));
