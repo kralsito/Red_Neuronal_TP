@@ -1,33 +1,23 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SumaService.service;
-
-namespace SumaService.Controllers
+class Program
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CalculadoraController : ControllerBase
+    static void Main(string[] args)
     {
-        private readonly CalculadoraService _calculadoraService;
+        // Definimos dos números enteros
+        int numero1 = 10;
+        int numero2 = 20;
 
-        public CalculadoraController(CalculadoraService calculadoraService)
+        // Comparamos los números
+        if (numero1 < numero2)
         {
-            _calculadoraService = calculadoraService;
+            Console.WriteLine("El primer número es menor que el segundo.");
         }
-
-        [HttpGet("sumar")]
-        public IActionResult Sumar(int numero1, int numero2)
+        else if (numero1 > numero2)
         {
-            try
-            {
-                int resultado = _calculadoraService.Sumar(numero1, numero2);
-                return Ok(resultado);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            Console.WriteLine("El primer número es mayor que el segundo.");
+        }
+        else
+        {
+            Console.WriteLine("Los dos números son iguales.");
         }
     }
-
 }
