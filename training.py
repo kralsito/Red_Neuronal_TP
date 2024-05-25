@@ -84,6 +84,7 @@ model.fit(X_train, y_train, epochs=30, validation_data=(X_test, y_test))
 
 # Evaluar el modelo utilizando el conjunto de datos de prueba
 loss, accuracy = model.evaluate(X_test, y_test)
+# loss_percentage = 100 - (accuracy * 100)
 print(f'Error general en el conjunto de datos de prueba: {loss}')
 print(f'Precisión en el conjunto de datos de prueba: {accuracy}')
 
