@@ -78,15 +78,18 @@ model = Sequential([
 
 # Compilar el modelo
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-
+print(f'===================================================================================================================================================')
+print(f'===================================================================================================================================================')
 # Entrenar el modelo usando el conjunto de datos de entrenamiento y validando con el conjunto de datos de prueba
-model.fit(X_train, y_train, epochs=30, validation_data=(X_test, y_test))
+model.fit(X_train, y_train, epochs=35, validation_data=(X_test, y_test))
 
 # Evaluar el modelo utilizando el conjunto de datos de prueba
-loss, accuracy = model.evaluate(X_test, y_test)
+loss, accuracy = model.evaluate(X_test, y_test) #Esta precision es promedios calculados en el momento, no es la final
 error_general = 1 - accuracy
-print(f'Precisión en el conjunto de datos de prueba: {accuracy}')
-print(f'Porcentaje del error general en el conjunto de datos de prueba: {error_general}')
+print(f'===================================================================================================================================================')
+print(f'Precisión en el conjunto de datos de prueba: {accuracy}') #Precision final
+print(f'Porcentaje del error general en el conjunto de datos de prueba: {error_general}') 
+print(f'===================================================================================================================================================')
 
 # GUARDAR EL MODELO Y LOS DICCIONARIOS
 # Guardar el modelo
