@@ -26,12 +26,23 @@ def predict_language(code):
     return index_to_label[language_index]
 
 # Predicción del lenguaje de programación de un archivo de texto
+# Función para leer el contenido del archivo con múltiples intentos de codificación
+def read_file_with_fallback(file_path):
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            return file.read()
+    except UnicodeDecodeError:
+        try:
+            with open(file_path, "r", encoding="latin-1") as file:
+                return file.read()
+        except UnicodeDecodeError:
+            raise Exception("Error decodificando archivo en UTF-8 y Latin-1")
 # Ruta al archivo de texto
 file_path = "input.txt"
 
 # Leer el contenido del archivo
 with open(file_path, "r") as file:
-    code_example = file.read()
+    code_example = read_file_with_fallback(file_path)
 
 predicted_language = predict_language(code_example)
 print(f"El lenguaje de programacion es: {predicted_language}")
