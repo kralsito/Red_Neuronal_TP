@@ -14,8 +14,11 @@ data_dir = "data"
 # Crear una lista vacía para almacenar los datos
 data = []
 # Recorre cada lenguaje de programación y cada archivo de estos subdirectorios
+print(f'===================================================================================================================================================')
+
 for language in os.listdir(data_dir):
     language_dir = os.path.join(data_dir, language)
+
     for file_name in os.listdir(language_dir):
         file_path = os.path.join(language_dir, file_name)
         try: # Intentamos abrir el archivo con codificación UTF-8 
@@ -32,8 +35,11 @@ for language in os.listdir(data_dir):
         # Agregamos el contenido del código y el lenguaje de promación a la lista de datos
         data.append((code, language))
 
+print(f'===================================================================================================================================================')
 # Ahora `data` contiene una lista de tuplas, donde cada tupla contiene un bloque de código y su lenguaje correspondiente
-print(f"Se han cargado {len(data)} fragmentos de código de diferentes lenguajes de programación.")
+print(f"|   Se han cargado {len(data)} fragmentos de código de diferentes lenguajes de programación.                                                              |")
+print(f'===================================================================================================================================================')
+
 # PREPARACIÓN DE LOS DATOS PARA EL ENTRENAMIENTO
 # Separa el código y el lenguaje en listas separadas
 texts, labels = zip(*data)
