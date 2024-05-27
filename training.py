@@ -1,3 +1,4 @@
+# Importar las librerías necesarias
 from keras.src.legacy.preprocessing.text import Tokenizer
 from keras.src.utils.sequence_utils import pad_sequences
 from keras.src.models.sequential import Sequential
@@ -21,19 +22,18 @@ for language in os.listdir(data_dir):
             with open(file_path, "r", encoding="utf-8") as file:
                 code = file.read()
         except UnicodeDecodeError: # Si falla, intentamos con otra codificación por tildes, $, etc.
-            print(f"Error decoding file '{file_path}' as UTF-8, attempting alternative encoding...")
+            print(f"Error descodificando el archivo: '{file_path}' como UTF-8, intentando una alternativa de codificación...")
             # Intentamos abrir el archivo con codificación latin-1
             with open(file_path, "r", encoding="latin-1") as file:
                 # Leemos el contenido del archivo
                 code = file.read()
                 # Imprimimos un mensaje de éxito
-            print(f"Success! Encoding file '{file_path}' as latin-1")
+            print(f"Codificación exitosa con el archivo: '{file_path}' en latin-1")
         # Agregamos el contenido del código y el lenguaje de promación a la lista de datos
         data.append((code, language))
 
 # Ahora `data` contiene una lista de tuplas, donde cada tupla contiene un bloque de código y su lenguaje correspondiente
-
-
+print(f"Se han cargado {len(data)} fragmentos de código de diferentes lenguajes de programación.")
 # PREPARACIÓN DE LOS DATOS PARA EL ENTRENAMIENTO
 # Separa el código y el lenguaje en listas separadas
 texts, labels = zip(*data)
@@ -84,9 +84,9 @@ model.fit(X_train, y_train, epochs=30, validation_data=(X_test, y_test))
 
 # Evaluar el modelo utilizando el conjunto de datos de prueba
 loss, accuracy = model.evaluate(X_test, y_test)
-# loss_percentage = 100 - (accuracy * 100)/loss ????????????????
-print(f'Error general en el conjunto de datos de prueba: {loss}')
+error_general = 1 - accuracy
 print(f'Precisión en el conjunto de datos de prueba: {accuracy}')
+print(f'Porcentaje del error general en el conjunto de datos de prueba: {error_general}')
 
 # GUARDAR EL MODELO Y LOS DICCIONARIOS
 # Guardar el modelo
