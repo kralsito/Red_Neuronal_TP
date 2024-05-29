@@ -1,9 +1,9 @@
 /*2. EN UNA ESCUELA PRIMARIA SE HA PEDIDO A LOS ALUMNOS QUE DONEN
 UN LIBRO PARA ARMAR UNA BIBLIOTECA. SE DESEA:
 INCORPORAR LOS DATOS DE LOS LIBROS A UNA LISTA, EN FORMA ORDENADA.
--LA INFORMACIÓN CORRESPONDIENTE A CADA LIBRO ES: TÍTULO, GÉNERO,
+-LA INFORMACIï¿½N CORRESPONDIENTE A CADA LIBRO ES: Tï¿½TULO, Gï¿½NERO,
 AUTOR, TEMA, EDITORIAL.
--INFORMAR LA CANTIDAD DE FÁBULAS Y CUENTOS INFANTILES DONADOS.
+-INFORMAR LA CANTIDAD DE Fï¿½BULAS Y CUENTOS INFANTILES DONADOS.
 */
 
 #include <stdio.h>
@@ -66,27 +66,4 @@ void insertar_ordenado(nodo **lista){
         nodo *nuevo=(nodo *)malloc(sizeof(nodo));
         printf("Ingrese el titulo del libro: \n ");
         scanf("%s",nuevo->titulo);
-        printf("Ingrese el genero del libro: \n ");
-        scanf("%s",nuevo->genero);
-        printf("Ingrese el autor del libro: \n ");
-        scanf("%s",nuevo->autor);
-        printf("Ingrese el tema del libro: \n ");
-        scanf("%s",nuevo->tema);
-        printf("Ingrese el editorial del libro: \n ");
-        scanf("%s",nuevo->editorial);
-        printf("\n");
-        actual=*lista;
-        anterior=NULL;
-        while(actual!=NULL && strcmp(actual->titulo,nuevo->titulo)<0){
-            anterior=actual;
-            actual=actual->sig;
-        }
-        if(anterior!=NULL){//inserto en el cuerpo
-            anterior->sig=nuevo;
-            nuevo->sig=actual;
-        }
-        else{ //insrto al inicio
-            nuevo->sig=*lista;
-            *lista=nuevo;
-        }
 }
