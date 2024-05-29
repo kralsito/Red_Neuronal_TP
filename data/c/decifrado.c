@@ -33,48 +33,6 @@ void writeChar(FILE *Cesar, char dato);
 int getTamFile(FILE *file);
 char * substract(char *s);
 
-/* Implementacion de Metodos */
-
-char * substract(char *s) {
-  int len = strlen(s);
-  char buf[len-1];
-  int i;
-  for(i = 0; i < len-6; i++){
-    buf[i] = s[i];
-  }
-  buf[i] = 0;
-    return strdup(buf);
-}
-
-void writeChar(FILE *Cesar, char dato) {
-  fprintf(Cesar, "%c", dato);
-}
-
-int readChar(FILE *file) {
-  return fgetc(file);
-}
-
-int getTamFile(FILE *file) {
-  fseek(file, 0, SEEK_END);
-  int aux = ((ftell(file)));
-  fseek(file, 0, SEEK_SET);
-  return aux;
-}
-
-void init() {
-  printf("Inicializando Variables \n");
-  entrada = 0;
-  salida = 0;
-  contador = 0;
-  posLlave = 0;
-  consumidos = getTamFile(file);
-  producidos = getTamFile(file);
-
-  pthread_mutex_init(&candado, NULL);
-  pthread_cond_init(&producido, NULL);
-  pthread_cond_init(&consumido, NULL);
-}
-
 void getElement(void) {
   while (consumidos != 0) {
     pthread_mutex_lock(&candado);

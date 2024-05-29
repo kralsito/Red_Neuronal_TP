@@ -18,13 +18,6 @@ void ingresarInformacion(struct Estudiante* estudiante) {
     scanf("%f", &estudiante->calificacion);
 }
 
-// Función para mostrar la información de un estudiante
-void mostrarInformacion(struct Estudiante estudiante) {
-    printf("Nombre: %s\n", estudiante.nombre);
-    printf("Edad: %d\n", estudiante.edad);
-    printf("Calificación: %.2f\n", estudiante.calificacion);
-}
-
 int main() {
     int numEstudiantes;
 
@@ -44,16 +37,6 @@ int main() {
         printf("\nIngresando información para el estudiante #%d:\n", i + 1);
         ingresarInformacion(&estudiantes[i]);
     }
-
-    // Mostrar la información de todos los estudiantes
-    printf("\nInformación de los estudiantes:\n");
-    for (int i = 0; i < numEstudiantes; i++) {
-        printf("\nInformación del estudiante #%d:\n", i + 1);
-        mostrarInformacion(estudiantes[i]);
-    }
-
-    // Liberar memoria al final del programa
-    free(estudiantes);
 
     return 0;
 }
