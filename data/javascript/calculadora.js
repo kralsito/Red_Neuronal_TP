@@ -237,3 +237,51 @@ class CalculadoraCientifica extends CalculadoraBasica {
 }
 
 const calculadora = new CalculadoraCientifica();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const billAmountInput = document.getElementById('billAmount');
+    const tipPercentageInput = document.getElementById('tipPercentage');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const tipAmountDisplay = document.getElementById('tipAmount');
+    const totalAmountDisplay = document.getElementById('totalAmount');
+
+    calculateBtn.addEventListener('click', () => {
+        const billAmount = parseFloat(billAmountInput.value);
+        const tipPercentage = parseFloat(tipPercentageInput.value) / 100;
+        const tipAmount = billAmount * tipPercentage;
+        const totalAmount = billAmount + tipAmount;
+        tipAmountDisplay.textContent = `$${tipAmount.toFixed(2)}`;
+        totalAmountDisplay.textContent = `$${totalAmount.toFixed(2)}`;
+    });
+});
+
+function addNumbers(num1, num2) {
+    return num1 + num2;
+  }
+  
+  let result = addNumbers(5, 3);
+  console.log(result); 
+
+function subNumbers(num1, num2) {
+    return num1 - num2;
+  }
+  
+  let result2 = addNumbers(5, 3);
+  console.log(result2); 
+
+function multNumbers(num1, num2) {
+    return num1 * num2;
+  }
+  
+    let result3 = addNumbers(5, 3);
+    console.log(result3);
+
+function divNumbers(num1, num2) {
+    return num1 / num2;
+  }
+
+    let result4 = addNumbers(5, 3);
+    console.log(result4);
+
+    
