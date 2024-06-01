@@ -15,9 +15,7 @@ pip install scikit-learn
 - Juan Ignacio Frangolini
 - Nuria Robledo  
 
-### Antes de usar la aplicacion se debe correr el training.py para que se genere el modelo de entrenamiento
-
-💭 ¿Cómo probar la aplicación?
+### 💭 ¿Cómo probar la aplicación?
 ```
 Modificar el archivo "input.txt" por el bloque de código cuyo lenguaje se quiera identificar.
 • Ejecutar el archivo "training.py" para generar el modelo de entrenamiento.
