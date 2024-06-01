@@ -6,7 +6,7 @@ pip install tensorflow
 pip install keras
 pip install scikit-learn
 ```
-## Integrantes
+## 👋 Integrantes
 - Franco Kral
 - Leo Sebastian Gonzales Tello
 - Manuel Morullo
@@ -17,7 +17,16 @@ pip install scikit-learn
 
 ### Antes de usar la aplicacion se debe correr el training.py para que se genere el modelo de entrenamiento
 
-## Cantidad de patrones por lenguaje
+💭 ¿Cómo probar la aplicación?
+```
+Modificar el archivo "input.txt" por el bloque de código cuyo lenguaje se quiera identificar.
+• Ejecutar el archivo "training.py" para generar el modelo de entrenamiento.
+• Ejecutar el archivo "app.py" para que la aplicación identifique el lenguaje de programación.
+• En la terminal veremos la respuesta que da la aplicación. 
+```
+
+
+## 🚀 Cantidad de patrones por lenguaje
 
 ```
 C = 50
