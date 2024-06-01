@@ -17,7 +17,7 @@ pip install scikit-learn
 
 ## 💭 ¿Cómo probar la aplicación?
 ```
-Modificar el archivo "input.txt" por el bloque de código cuyo lenguaje se quiera identificar.
+• Modificar el archivo "input.txt" por el bloque de código cuyo lenguaje se quiera identificar.
 • Ejecutar el archivo "training.py" para generar el modelo de entrenamiento.
 • Ejecutar el archivo "app.py" para que la aplicación identifique el lenguaje de programación.
 • En la terminal veremos la respuesta que da la aplicación. 
