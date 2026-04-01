@@ -1,21 +1,25 @@
 from flask import Flask, render_template, request, jsonify
-from keras._tf_keras.keras.models import load_model
-from keras.src.legacy.preprocessing.text import Tokenizer
-from keras.src.utils.sequence_utils import pad_sequences
-import numpy as np
-import pickle
 import os
+import pickle
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 app = Flask(__name__)
 
 # Cargar el modelo y los diccionarios al iniciar la aplicación
-MODEL_PATH = "model/language_model.h5"
+MODEL_PATH = "model/language_model.keras"
 TOKENIZER_PATH = "model/tokenizer.pickle"
 LABEL_TO_INDEX_PATH = "model/label_to_index.pickle"
 INDEX_TO_LABEL_PATH = "model/index_to_label.pickle"
 MAX_LENGTH_PATH = "model/max_length.pickle"
 
 # Verificar que los archivos existen
+if not os.path.exists(MODEL_PATH):
+     # Intentar con .h5 por si aún no se reentrenó
+     MODEL_PATH = "model/language_model.h5"
+
 if not all(os.path.exists(p) for p in [MODEL_PATH, TOKENIZER_PATH, LABEL_TO_INDEX_PATH, INDEX_TO_LABEL_PATH, MAX_LENGTH_PATH]):
     raise Exception("El modelo no ha sido entrenado. Por favor, ejecuta training.py primero.")
 

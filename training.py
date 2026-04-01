@@ -1,12 +1,13 @@
 # Importar las librerías necesarias
-from keras.src.legacy.preprocessing.text import Tokenizer
-from keras.src.utils.sequence_utils import pad_sequences
-from keras.src.models.sequential import Sequential
-from keras._tf_keras.keras.layers import Embedding, LSTM, Dense, Bidirectional
-from sklearn.model_selection import train_test_split
-import numpy as np
 import os
 import pickle
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, LSTM, Dense, Bidirectional
+from sklearn.model_selection import train_test_split
 
 # CARGA DE LOS DATOS
 # Se define el directorio data donde se almacenan los fragmentos de código organizados por lenguaje de programación
@@ -99,7 +100,7 @@ print(f'========================================================================
 
 # GUARDAR EL MODELO Y LOS DICCIONARIOS
 # Guardar el modelo
-model.save("model/language_model.h5")
+model.save("model/language_model.keras")
 
 # Guardar el tokenizer y los diccionarios
 with open("model/tokenizer.pickle", "wb") as handle:
