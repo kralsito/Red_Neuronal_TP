@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAI Detector — Identificador de Lenguajes</title>
+    <meta name="description" content="Identifica el lenguaje de programación de cualquier fragmento de código usando redes neuronales Bi-LSTM entrenadas con C, C#, Java, JavaScript y Python.">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CodeAI Detector</h1>
+            <p class="subtitle">Identifica el lenguaje de programación con redes neuronales</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tool">Herramienta</button>
+            <button class="tab-btn" data-tab="doc">Documentación</button>
+            <button class="tab-btn" data-tab="architecture">Arquitectura RNA</button>
+        </div>
+
+        <!-- ===================== TAB: HERRAMIENTA ===================== -->
+        <div id="tool" class="tab-content active">
+            <div class="main-card">
+                <div class="supported-langs">
+                    <span class="supported-label"><i data-lucide="shield-check"></i> Lenguajes soportados</span>
+                    <div class="lang-badges">
+                        <span class="lang-badge">C</span>
+                        <span class="lang-badge">C#</span>
+                        <span class="lang-badge">Java</span>
+                        <span class="lang-badge">JavaScript</span>
+                        <span class="lang-badge">Python</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="code-input">Pega tu código aquí</label>
+                    <textarea id="code-input" placeholder="// Ingresa el fragmento de código..."></textarea>
+                </div>
+
+                <div class="actions">
+                    <button id="analyze-btn">
+                        <span class="loader" id="loader"></span>
+                        Analizar Código
+                    </button>
+                </div>
+
+                <div id="results">
+                    <div class="prediction-summary" id="top-prediction">
+                        <span class="subtitle">Resultado Principal</span>
+                        <span class="top-language" id="main-lang">-</span>
+                        <span class="top-probability" id="main-prob">0% de probabilidad</span>
+                    </div>
+                    <div class="other-languages" id="others-list">
+                        <!-- Filas de otros lenguajes se insertarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== TAB: DOCUMENTACIÓN ===================== -->
+        <div id="doc" class="tab-content">
+            <div class="doc-card">
+                <h2>¿Cómo funciona este proyecto?</h2>
+                <div class="doc-section">
+                    <h3>1. El Problema</h3>
+                    <p>La identificación automática de lenguajes de programación es un desafío clásico de <strong>Natural Language Processing (NLP)</strong>. Cada lenguaje tiene su propia gramática y "huella digital" sintáctica.</p>
+                </div>
+                <div class="doc-section">
+                    <h3>2. Entradas y Preprocesamiento</h3>
+                    <p>El input es un bloque de texto que se somete a un proceso de <strong>Tokenización</strong>. Esto convierte cada palabra o símbolo en un índice numérico para que la red pueda procesarlo.</p>
+                    <ul class="doc-list">
+                        <li><strong>Secuencias:</strong> Convertimos el texto en una lista de números.</li>
+                        <li><strong>Padding:</strong> Todas las entradas se nivelan a un tamaño fijo de <strong>500 tokens</strong>.</li>
+                    </ul>
+                </div>
+                <div class="doc-section">
+                    <h3>3. Lo que sucede "en el medio"</h3>
+                    <p>Los datos pasan por una capa de <strong>Embedding</strong> que agrupa palabras similares en un espacio de 32 dimensiones. Luego, la capa <strong>Bi-LSTM</strong> analiza la secuencia en ambas direcciones para entender el contexto.</p>
+                </div>
+                <div class="doc-section">
+                    <h3>4. Salidas</h3>
+                    <p>La capa final genera 5 valores numéricos. Aplicamos <strong>Softmax</strong> para que estos valores se conviertan en probabilidades que suman 100%, indicando qué tan seguro está el modelo de pertenecer a C, C#, Java, Javascript o Python.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== TAB: ARQUITECTURA RNA ===================== -->
+        <div id="architecture" class="tab-content">
+            <div class="doc-card">
+                <h2>Representación Interna de la RNA</h2>
+                <p class="subtitle">Visualización del flujo de datos a través de las capas neuronales</p>
+
+                <div class="rna-diagram">
+                    <div class="rna-layer" data-label="Entrada">
+                        <div class="node-group">
+                            <i data-lucide="code-2"></i>
+                            <span>Código (Texto)</span>
+                        </div>
+                    </div>
+                    <div class="rna-arrow"><i data-lucide="arrow-right"></i></div>
+                    <div class="rna-layer" data-label="Embedding (32D)">
+                        <div class="node-group">
+                            <div class="node"></div><div class="node"></div><div class="node"></div>
+                        </div>
+                        <span>Vectores Densos</span>
+                    </div>
+                    <div class="rna-arrow"><i data-lucide="arrow-right"></i></div>
+                    <div class="rna-layer highlight" data-label="Bi-LSTM (32 Units)">
+                        <div class="node-group">
+                            <div class="node special"></div>
+                            <div class="node special"></div>
+                        </div>
+                        <span>Memoria Temporal</span>
+                    </div>
+                    <div class="rna-arrow"><i data-lucide="arrow-right"></i></div>
+                    <div class="rna-layer" data-label="Dense/ReLU">
+                        <div class="node-group">
+                            <div class="node"></div><div class="node"></div>
+                        </div>
+                        <span>Procesamiento</span>
+                    </div>
+                    <div class="rna-arrow"><i data-lucide="arrow-right"></i></div>
+                    <div class="rna-layer" data-label="Softmax">
+                        <div class="node-group">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <span>Predicción (5 Clases)</span>
+                    </div>
+                </div>
+
+                <section class="theory-section" style="margin-top: 40px;">
+                    <div class="theory-grid">
+                        <div class="theory-card">
+                            <div class="theory-icon"><i data-lucide="brain-circuit"></i></div>
+                            <h3>Arquitectura RNN Bi-LSTM</h3>
+                            <p>Para procesar código, que es una secuencia de lógica pura, implementamos una <strong>Red Neuronal Recurrente (RNN)</strong> con celdas <strong>LSTM</strong>. Esta estructura actúa como una "Capa de Memoria" que, gracias a su diseño <strong>Bidireccional</strong>, permite a las neuronas leer el fragmento en ambos sentidos y capturar el contexto sintáctico completo de cada token.</p>
+                            <div class="theory-detail">
+                                <strong>Cómo se aplica:</strong> Esta lectura dual permite al modelo identificar patrones complejos, como la apertura de llaves <code>{}</code> en Java o la indentación en Python, reconociendo la estructura del lenguaje más allá de simples palabras aisladas.
+                            </div>
+                        </div>
+                        <div class="theory-card">
+                            <div class="theory-icon"><i data-lucide="binary"></i></div>
+                            <h3>Word Embedding</h3>
+                            <p>Dado que una IA no puede leer texto de forma nativa, esta capa actúa como un puente fundamental. El <strong>Word Embedding</strong> convierte cada palabra en un vector numérico denso dentro de un espacio de 32 dimensiones, donde la cercanía física entre vectores representa una similitud de significado real.</p>
+                            <div class="theory-detail">
+                                <strong>Cómo se aplica:</strong> Mediante este mapeo, la red descubre por sí sola que términos como <code>function</code> (JS) y <code>def</code> (Python) ocupan lugares similares en el espacio vectorial porque cumplen el mismo rol lógico dentro de sus respectivos ecosistemas.
+                            </div>
+                        </div>
+                        <div class="theory-card">
+                            <div class="theory-icon"><i data-lucide="settings-2"></i></div>
+                            <h3>Optimización Adam</h3>
+                            <p>Para que la red aprenda correctamente de sus errores, utilizamos <strong>Adam</strong>, un algoritmo de optimización adaptativo que ajusta la fuerza de las conexiones neuronales según los errores cometidos, acelerando el aprendizaje y logrando resultados precisos en tiempo récord.</p>
+                            <div class="theory-detail">
+                                <strong>Cómo se aplica:</strong> Durante el entrenamiento detallado en <code>training.py</code>, este algoritmo minimiza la "sorpresa" del modelo, refinando su capacidad de distinguir entre lenguajes muy similares como C y C# basándose en miles de ejemplos reales procesados.
+                            </div>
+                        </div>
+                        <div class="theory-card">
+                            <div class="theory-icon"><i data-lucide="bar-chart-3"></i></div>
+                            <h3>Padding y Softmax</h3>
+                            <p>El <strong>Padding</strong> normaliza todas las secuencias de código a una longitud fija de 500 tokens para que la red reciba datos uniformes. A continuación, la función <strong>Softmax</strong> traduce los valores abstractos de las neuronas de salida en probabilidades entre 0% y 100% que suman exactamente 100%.</p>
+                            <div class="theory-detail">
+                                <strong>Cómo se aplica:</strong> Este paso final es el que nos permite presentarte un ranking de confianza, donde el <code>Softmax</code> nos indica qué tan seguro está el modelo de que el código ingresado pertenece a uno de los 5 lenguajes soportados.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
