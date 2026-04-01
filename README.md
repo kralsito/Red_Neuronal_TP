@@ -9,6 +9,8 @@ pinned: false
 ---
 
 # Red_Neuronal_TP
+## Probarla en:
+https://huggingface.co/spaces/mmorullo/CodeAI-Detector
 
 ## Tecnologías necesarias
 ```
@@ -48,7 +50,7 @@ python training.py
 ```
 
 Esto genera los archivos en `model/`:
-- `language_model.h5`
+- `language_model.keras`
 - `tokenizer.pickle`
 - `label_to_index.pickle`
 - `index_to_label.pickle`
@@ -68,7 +70,12 @@ Abrí tu navegador en: [http://localhost:5000](http://localhost:5000)
 ```
 Red_Neuronal_TP/
 ├── data/                  # Dataset de entrenamiento
-├── model/                 # Modelo entrenado
+├── model/                 # Modelo Entrenado
+│   ├── language_model.keras # Red Neuronal entrenada (Formato Keras nativo)
+│   ├── tokenizer.pickle   # Tokenizador para preprocesamiento de texto
+│   ├── label_to_index.pickle # Mapeo de etiquetas a índices
+│   ├── index_to_label.pickle # Mapeo de índices a etiquetas (Post-procesamiento)
+│   └── max_length.pickle  # Longitud máxima de texto que soporta el modelo
 ├── static/
 │   ├── css/main.css       # Estilos
 │   └── js/main.js         # Lógica frontend
