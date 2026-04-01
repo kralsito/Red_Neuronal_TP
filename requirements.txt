@@ -1,4 +1,5 @@
-tensorflow
 flask
-scikit-learn
 numpy
+huggingface_hub
+tensorflow>=2.16.1
+keras>=3.0.0

@@ -101,5 +101,3 @@ JAVA = 50
 JAVASCRIPT = 50
 PYTHON = 50
 ```
-
-### (Get-ChildItem -File | Measure-Object).Count

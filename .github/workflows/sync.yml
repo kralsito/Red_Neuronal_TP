@@ -12,25 +12,25 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: main-repo
-          fetch-depth: 0
 
       - name: Checkout Hugging Face Repo
         run: |
-          # Clonamos el repositorio de Hugging Face
           git clone https://mmorullo:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/mmorullo/CodeAI-Detector hf-repo
 
       - name: Sync and Push
         run: |
-          # Configurar identidad de Git
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
           
-          # Sincronizamos solo el código, ignorando la carpeta 'model' y '.git'
-          # Esto hace que el 'model/' que ya está en Hugging Face se mantenga intacto.
-          rsync -av --progress --exclude '.git' --exclude 'model' main-repo/ hf-repo/
+          # Sincronizar archivos EXCEPTO .git y model
+          # La clave es NO usar --delete en rsync para que no borre lo que ya hay en HF
+          rsync -av --progress --exclude '.git' --exclude 'model/' main-repo/ hf-repo/
           
-          # Entramos al repositorio de HF, guardamos cambios y subimos
           cd hf-repo
+          # Forzamos a Git a añadir todo EXCEPTO la carpeta model
+          # Así la carpeta model que subiste a mano nunca se toca
           git add .
-          git commit -m "Actualización de código desde GitHub (Sincronización segura)" || echo "No hay cambios para subir"
+          git reset model/ || echo "No model folder tracked"
+          
+          git commit -m "Actualización segura de código (preservando modelo manual)" || echo "No changes to commit"
           git push origin main
