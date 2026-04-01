@@ -17,4 +17,9 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          rm -rf model/
+          git add .
+          git commit -m "Excluyendo binarios para Hugging Face" || echo "No hay cambios para commitear"
           git push --force https://mmorullo:$HF_TOKEN@huggingface.co/spaces/mmorullo/CodeAI-Detector main
