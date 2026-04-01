@@ -10,3 +10,6 @@ __pycache__/
 # Carpeta del entorno virtual
 env/
 .venv/
+
+# Carpeta del modelo
+model/

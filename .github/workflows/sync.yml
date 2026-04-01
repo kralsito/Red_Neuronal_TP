@@ -2,24 +2,35 @@ name: Sync to Hugging Face hub
 on:
   push:
     branches: [main, master]
-  # Permite correrlo manualmente desde la pestaña Actions
   workflow_dispatch:
 
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout GitHub Repo
+        uses: actions/checkout@v3
         with:
+          path: main-repo
           fetch-depth: 0
-          lfs: true
-      - name: Push to hub
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+      - name: Checkout Hugging Face Repo
         run: |
+          # Clonamos el repositorio de Hugging Face
+          git clone https://mmorullo:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/mmorullo/CodeAI-Detector hf-repo
+
+      - name: Sync and Push
+        run: |
+          # Configurar identidad de Git
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-          rm -rf model/
+          
+          # Sincronizamos solo el código, ignorando la carpeta 'model' y '.git'
+          # Esto hace que el 'model/' que ya está en Hugging Face se mantenga intacto.
+          rsync -av --progress --exclude '.git' --exclude 'model' main-repo/ hf-repo/
+          
+          # Entramos al repositorio de HF, guardamos cambios y subimos
+          cd hf-repo
           git add .
-          git commit -m "Excluyendo binarios para Hugging Face" || echo "No hay cambios para commitear"
-          git push --force https://mmorullo:$HF_TOKEN@huggingface.co/spaces/mmorullo/CodeAI-Detector main
+          git commit -m "Actualización de código desde GitHub (Sincronización segura)" || echo "No hay cambios para subir"
+          git push origin main
